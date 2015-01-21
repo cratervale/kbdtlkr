@@ -1,0 +1,90 @@
+<div id="keyboard">
+  <input class="keyboardInput form-control" type="text" ng-model="wordIn" ng-focus="setInputHasFocus(true)" ng-blur="setInputHasFocus(false)" placeholder="Type a word, then click a key">
+
+
+    	<ul class="cf disable">
+        	<li><a  class="key c27 fn"><span id="esc">esc</span></a></li>
+        	<li><a  class="key c112 fn"><span>F1</span></a></li>
+        	<li><a  class="key c113 fn"><span>F2</span></a></li>
+        	<li><a  class="key c114 fn"><span>F3</span></a></li>
+        	<li><a  class="key c115 fn"><span>F4</span></a></li>
+        	<li><a  class="key c116 fn"><span>F5</span></a></li>
+        	<li><a  class="key c117 fn"><span>F6</span></a></li>
+        	<li><a  class="key c118 fn"><span>F7</span></a></li>
+        	<li><a  class="key c119 fn"><span>F8</span></a></li>
+        	<li><a  class="key c120 fn"><span>F9</span></a></li>
+        	<li><a  class="key c121 fn"><span>F10</span></a></li>
+        	<li><a  class="key c122 fn"><span>F11</span></a></li>
+        	<li><a  class="key c123 fn"><span>F12</span></a></li>
+        	<li><a  class="key fn"><span>Eject</span></a></li>
+        </ul>
+    	<ul class="cf " id="numbers">
+    		<div class="disable">
+	    	<li><a  class="key c192"><b>~</b><span>`</span></a></li>
+	    	<li><a  class="key c49"><b>!</b><span>1</span></a></li>
+	    	<li><a  class="key c50"><b>@</b><span>2</span></a></li>
+	    	<li><a  class="key c51"><b>#</b><span>3</span></a></li>
+	    	<li><a  class="key c52"><b>$</b><span>4</span></a></li>
+	    	<li><a  class="key c53"><b>%</b><span>5</span></a></li>
+	    	<li><a  class="key c54"><b>^</b><span>6</span></a></li>
+	    	<li><a  class="key c55"><b>&amp;</b><span>7</span></a></li>
+	    	<li><a  class="key c56"><b>*</b><span>8</span></a></li>
+	    	<li><a  class="key c57"><b>(</b><span>9</span></a></li>
+	    	<li><a  class="key c48"><b>)</b><span>0</span></a></li>
+	    	<li><a  class="key c189 alt"><b>_</b><span>-</span></a></li>
+	    	<li><a  class="key c187"><b>+</b><span>=</span></a></li>
+	    	<li><a  class="key c46" id="delete"><span>Delete</span></a></li>
+	    	</div>
+        </ul>
+    	<ul class="cf" id="qwerty">
+	    	<li><a  class="key disable c9" id="tab"><span>tab</span></a></li>
+	    	<span ng-repeat="key in keys.qwerty">
+		    	<key ng-class="{true: 'editing ' + key.class, false: key.class}[isEditing]" txt="key.text" code="{{key.code}}" word="{{key.word}}" character="{{key.character}}" action="setOrPlay(key)"></key>
+	    	</span>
+	    	<li><a  class="key disable c219 alt"><b>{</b><span>[</span></a></li>
+	    	<li><a  class="key disable c221 alt"><b>}</b><span>]</span></a></li>
+	    	<li><a  class="key disable c220 alt"><b>|</b><span>\</span></a></li>
+        </ul>
+        <ul class="cf" id="asdfg">
+	    	<li><a  class="key disable c20 alt" id="caps"><b></b><span>caps lock</span></a></li>
+	    	<span ng-repeat="key in keys.asdfg">
+		    	<key ng-class="{true: 'editing ' + key.class, false: key.class}[isEditing]" txt="key.text" code="{{key.code}}" word="{{key.word}}" character="{{key.character}}" action="setOrPlay(key)"></key>
+	    	</span>
+	    	<li><a  class="key  disable c186 alt"><b>:</b><span>;</span></a></li>
+	    	<li><a  class="key  disable c222 alt"><b>"</b><span>'</span></a></li>
+	    	<li><a  class="key disable  c13 alt" id="enter"><span>return</span></a></li>
+        </ul>
+        <ul class="cf" id="zxcvb">
+	    	<li><a  class="key disable  c16 shiftleft"><span>Shift</span></a></li>
+	    	<span ng-repeat="key in keys.zxcvb">
+		    	<key ng-class="{true: 'editing ' + key.class, false: key.class}[isEditing]" txt="key.text" code="{{key.code}}" word="{{key.word}}" character="{{key.character}}" action="setOrPlay(key)"></key>
+	    	</span>
+	    	<li><a  class="key disable  c188 alt"><b>&lt;</b><span>,</span></a></li>
+	    	<li><a  class="key disable  c190 alt"><b>&gt;</b><span>.</span></a></li>
+	    	<li><a  class="key disable  c191 alt"><b>?</b><span>/</span></a></li>
+	    	<li><a  class="key disable  c16 shiftright"><span>Shift</span></a></li>
+        </ul>
+		<ul class="cf" id="bottomrow">
+	    	<li><a  class="key disable " id="fn"><span></span></a></li>
+	    	<li><a  class="key disable  c17" id="control"><span></span></a></li>
+	    	<li><a  class="key disable  option" id="optionleft"><span></span></a></li>
+	    	<li><a  class="key disable  command" id="commandleft"><span></span></a></li>
+	    	<li><a  class="key disable  c32" id="spacebar"></a></li>
+	    	<li><a  class="key disable  command" id="commandright"><span></span></a></li>
+	    	<li><a  class="key disable  option" id="optionright"><span></span></a></li>
+            <ol class="cf">
+            	<li><a  class="key disable  c37" id="left"><span></span></a></li>
+                <li>
+                	<a  class="key disable  c38" id="up"><span></span></a>
+                	<a  class="key disable  c40" id="down"><span></span></a>
+                </li>
+            	<li><a class="key disable  c39" id="right"><span></span></a></li>
+            </ol>
+        </ul>
+        
+    </div>
+    <br>
+    <br>
+  </div>
+  
+
