@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'vr.directives.slider'
   ])
   .config(function ($routeProvider) {
     $routeProvider

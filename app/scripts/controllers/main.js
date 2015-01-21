@@ -8,7 +8,7 @@
  * Controller of the kbyoApp
  */
 angular.module('kbyoApp')
-  .controller('MainCtrl', function ($rootScope, $scope, $firebase, Messages, keyboard, $modal) {
+  .controller('MainCtrl', function ($rootScope, $scope, $firebase, Messages, keyboard, $modal, User) {
   	
    $(document).ready(function(){
         $('#myModal').modal('show');
@@ -18,7 +18,7 @@ angular.module('kbyoApp')
   	$scope.wordIn = "";
   	$scope.wordStaging = "";
   	$scope.inputHasFocus = false;
-  	$scope.username = "";
+  	$scope.voicePitch = 50;
   	
   	$scope.setInputHasFocus = function(bool){
   		$scope.inputHasFocus = bool;
@@ -54,8 +54,8 @@ angular.module('kbyoApp')
   	$scope.play = function(key){
   		//check if word is set
   		if(key.word){
-  			//play the word
-			$scope.messages.$add({from: $scope.username, 'wordId': key.word, time: newTimeStamp()});
+  			//send (play) the word
+			$scope.messages.send(key.word);
   		}else{
   			console.log("no word set");
   		}
@@ -72,7 +72,7 @@ angular.module('kbyoApp')
 	  		key.word = $scope.wordIn;
 	  		
 	  		// play the word locally
-	  		$scope.messages.addWord($scope.wordIn, true);  		
+	  		$scope.messages.addWord($scope.wordIn, true, User.getPitch());  		
 	  		
 	  		//reset the word input
   			$scope.wordIn = "";
@@ -120,15 +120,8 @@ angular.module('kbyoApp')
   	// //the words in this room
   	// $scope.words = sync.$asArray();
   	// $scope.messages = sync.$asArray();
-  	
-	function newTimeStamp(){
-		//time in seconds
-		// https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
-		return Date.now() / 1000 | 0;
-	}
-	
 		
-	$scope.items = ['item1', 'item2', 'item3'];
+	$scope.items = $scope.messages;
 
 	  $scope.open = function (size) {
 	
@@ -145,11 +138,7 @@ angular.module('kbyoApp')
 	      }
 	    });
 	
-	    modalInstance.result.then(function (loginName) {
-	      $scope.username = loginName;
-	      if(!$scope.username) {
-	      	$scope.username = "annonymous masturbator";
-	      }
+	    modalInstance.result.then(function (args) {
 
 	    }, function () {
 	      console.info('Modal dismissed at: ' + new Date());

@@ -8,7 +8,7 @@
  * Factory in the kbyoApp.
  */
 angular.module('kbyoApp')
-  .factory('Messages', function ($FirebaseArray, $firebase) {
+  .factory('Messages', function ($FirebaseArray, $firebase, User) {
   	var MessagesFactory = $FirebaseArray.$extendFactory({
   		// newTimeStamp : function(){
 			// //time in seconds
@@ -26,48 +26,61 @@ angular.module('kbyoApp')
   		
   		$$added: function(snapshot){
   			console.log(snapshot.val());
-  			if(this.localWords[snapshot.val().wordId]){
-  				// word exists, play it
-  				wordId = snapshot.val().wordId;
-  				from = "";
-  				from = snapshot.val().from;
-  				console.log("hi hi hi hi");
-  				console.log(from);
-  				this.playWord(wordId);
+			var wordId = snapshot.val().wordId;
+			var pitch = snapshot.val().pitch;
+			var from = "";
+			from = snapshot.val().from;
+			//Word exists, play it
+  			try{
+  				this.playWord(wordId, pitch);
   				toastr.info(from + ' says: "' + wordId +'"');
-  				
-  			} else {
-  				// create word and play it
-  				var wordId = snapshot.val().wordId;
-  				var from = snapshot.val().from;
-  				this.addWord(wordId, true);
-				toastr.info(from + ' says: "' + wordId +'"');  				
-  			}
-  			
+  			} catch(TypeError) {
+  				//word doesn't exist, add it, and play it.
+  				this.addWord(wordId, true, pitch);
+				toastr.info(from + ' says: "' + wordId +'"');  		
+			}		
   		},
   		
-  		addWord: function(word, shouldPlay){
+  		addWord: function(word, shouldPlay, pitch){
   			var so = {};
 			self = this;
-			speak(word, {}, so, function(){
+			console.log("hi hi hi" + pitch);
+			speak(word, {pitch: pitch}, so, function(){
 				var soundObject = {};
 				soundObject.audio = new Audio();
 				soundObject.audio.src = 'data:audio/x-wav;base64,' + so.sound;
-				self.localWords[word] = soundObject;
+				
+				//instantiate this location as it doesn't evaluate to undefined (you're accessing an object property, not just an object)
+				if(!self.localWords[pitch]){
+					self.localWords[pitch]  = {};
+				}
+				self.localWords[pitch][word] = soundObject;
 				if(shouldPlay){
-					self.playWord(word);
+					self.playWord(word, pitch);
 	  			}
 			});
   			
   			
   		},
   		
-  		
-  		playWord:function(wrd){
+  		playWord:function(wrd, ptch){
   			console.log("playing Playing");
-  			this.localWords[wrd].audio.play();
-
-  		}
+  			// try{
+	  			this.localWords[ptch][wrd].audio.play();
+  			// } catch(err) {
+  				// this.addWord(wrd, true, ptch);
+  			// }
+  		},
+  		
+  		send: function(word){
+  			this.$add({from: User.getUsername(), 'wordId': word, pitch:User.getPitch(), time: this.newTimeStamp()});
+  		},
+  		
+  		newTimeStamp : function(){
+			//time in seconds
+			// https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+			return Date.now() / 1000 | 0;
+		}
   	});
    
    return function(){
