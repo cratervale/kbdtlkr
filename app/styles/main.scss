@@ -94,11 +94,34 @@ body {
 
 body {background: #eee;}
 
+.aboutIcons{
+  font-size:80px;
+  float:right;
+  margin-top: 20px;
+  color: #666;
+
+}
+
 .keyboardInput{
-  background: #d5d9dc - 10;
+  width:775px;
+  margin-left:5px;
+  input{
+    background: #d5d9dc - 10;
+    color:white;
+    margin-bottom:5px;
+  }
+}
+
+.previewSwitchEnabled{
   color:white;
-  width:784px;
-  margin-bottom:5px;
+  background-color:#5cb85c;
+  cursor: pointer;
+}
+
+.previewSwitchDisabled{
+  background-color:#aaa;
+  color:#777;
+  cursor: pointer;
 }
 
 .editing {

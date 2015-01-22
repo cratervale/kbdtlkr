@@ -1,6 +1,8 @@
 <div id="keyboard">
-  <input class="keyboardInput form-control" type="text" ng-model="wordIn" ng-focus="setInputHasFocus(true)" ng-blur="setInputHasFocus(false)" placeholder="Type a word, then click a key">
-
+	<div class="input-group keyboardInput">
+  		<input class=" form-control" type="text" ng-model="wordIn" ng-focus="setInputHasFocus(true)" ng-blur="setInputHasFocus(false)" placeholder="Type a word, then click a key">
+		<span ng-click="togglePreview()" ng-class="{true: 'input-group-addon previewSwitchEnabled', false: 'input-group-addon previewSwitchDisabled'}[previewEnabled]">{{previewMessage}} <i class="{{previewIcon}}"></i></span>
+	</div>
 
     	<ul class="cf disable">
         	<li><a  class="key c27 fn"><span id="esc">esc</span></a></li>
@@ -69,7 +71,7 @@
 	    	<li><a  class="key disable  c17" id="control"><span></span></a></li>
 	    	<li><a  class="key disable  option" id="optionleft"><span></span></a></li>
 	    	<li><a  class="key disable  command" id="commandleft"><span></span></a></li>
-	    	<li><a  class="key disable  c32" id="spacebar"></a></li>
+	    	<li><a  class="key disable  c32" id="spacebar"> </a></li>
 	    	<li><a  class="key disable  command" id="commandright"><span></span></a></li>
 	    	<li><a  class="key disable  option" id="optionright"><span></span></a></li>
             <ol class="cf">
@@ -86,5 +88,17 @@
     <br>
     <br>
   </div>
+  
+  <div class="container">
+      	<div class="footer">
+      		
+        <ol class="list">
+        	<li>Type something in the text box.</li><br> 
+        	<li>Click a key on the keyboard to set and preview your robot text.</li><br> 
+        	<li>Click the key again to send.</li><br>
+        	<li>Play nice.</li>
+        </ol>
+      	</div>
+      </div>
   
 

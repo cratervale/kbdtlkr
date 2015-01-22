@@ -44,7 +44,6 @@ angular.module('kbyoApp')
   		addWord: function(word, shouldPlay, pitch){
   			var so = {};
 			self = this;
-			console.log("hi hi hi" + pitch);
 			speak(word, {pitch: pitch}, so, function(){
 				var soundObject = {};
 				soundObject.audio = new Audio();
@@ -64,12 +63,7 @@ angular.module('kbyoApp')
   		},
   		
   		playWord:function(wrd, ptch){
-  			console.log("playing Playing");
-  			// try{
-	  			this.localWords[ptch][wrd].audio.play();
-  			// } catch(err) {
-  				// this.addWord(wrd, true, ptch);
-  			// }
+  			this.localWords[ptch][wrd].audio.play();
   		},
   		
   		send: function(word){

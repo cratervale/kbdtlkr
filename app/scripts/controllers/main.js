@@ -12,16 +12,33 @@ angular.module('kbyoApp')
   	
    $(document).ready(function(){
         $('#myModal').modal('show');
-        console.log("GOOODDD MORNING");
     });
   	$scope.messages = new Messages();
   	$scope.wordIn = "";
   	$scope.wordStaging = "";
   	$scope.inputHasFocus = false;
-  	$scope.voicePitch = 50;
+  	// $scope.voicePitch = 50;
+  	
+  	$scope.previewEnabled = true;
+  	$scope.previewMessage = "Preview Enabled";
+  	$scope.previewIcon = "glyphicon glyphicon-ok";
+  	
   	
   	$scope.setInputHasFocus = function(bool){
   		$scope.inputHasFocus = bool;
+  	};
+  	
+  	$scope.togglePreview = function(){
+  		$scope.previewEnabled = !$scope.previewEnabled;
+  		if($scope.previewEnabled){
+  			$scope.previewMessage = "Preview Enabled";
+  			$scope.previewIcon = "glyphicon glyphicon-ok";
+  		} else {
+  			$scope.previewMessage = "Preview Disabled";
+  			$scope.previewIcon = "glyphicon glyphicon-remove";
+  		}
+  		
+  		console.log($scope.previewMessage);
   	};
 	
 	//Load the model  	
@@ -48,7 +65,6 @@ angular.module('kbyoApp')
 			$rootScope.$$phase || $rootScope.$apply();
   		}
   		
-  		console.log($scope.isEditing);
   	};
   	
   	$scope.play = function(key){
@@ -64,7 +80,7 @@ angular.module('kbyoApp')
   	
   	//Function that either sets or plays a word for a given key
   	$scope.setOrPlay = function(key){
-  		console.log(key);
+  		// console.log(key);
   		
   		//check if in editing mode
   		if($scope.isEditing){
@@ -72,7 +88,7 @@ angular.module('kbyoApp')
 	  		key.word = $scope.wordIn;
 	  		
 	  		// play the word locally
-	  		$scope.messages.addWord($scope.wordIn, true, User.getPitch());  		
+	  		$scope.messages.addWord($scope.wordIn, $scope.previewEnabled, User.getPitch());  		
 	  		
 	  		//reset the word input
   			$scope.wordIn = "";
@@ -87,13 +103,10 @@ angular.module('kbyoApp')
   	$(document).keypress(function(e){
   		var keyPressed = e.keyCode;
   		if(!$scope.isEditing && !$scope.inputHasFocus){
-	  		console.log(keyPressed);
 	  		//find the key whose keycode === the key pressed
 	  		_.each(_.keys($scope.keys), function(item){
 		  		var row = $scope.keys[item];
-		  		// console.log(row);
 		  		_.each(row, function(key){
-		  			// console.log(key);ppv
 		  			if(key.code === keyPressed-32){
 		  				$scope.play(key);
 		  			}
@@ -103,7 +116,6 @@ angular.module('kbyoApp')
   	});
   	
   	$('html').click(function (e) {
-  		console.log(e);
     if(e.target.id == 'keyboard' || e.target.tagName == 'LI' || e.target.tagName == "SPAN" || e.target.tagName == "INPUT"){
     	
    	} else {
