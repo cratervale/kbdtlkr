@@ -41,9 +41,14 @@ angular.module('kbyoApp')
 			}		
   		},
   		
+  		sterilize : function(phrase){
+  			return phrase.substr(0,50);
+  		},
+  		
   		addWord: function(word, shouldPlay, pitch){
   			var so = {};
 			self = this;
+			word = this.sterilize(word);
 			speak(word, {pitch: pitch}, so, function(){
 				var soundObject = {};
 				soundObject.audio = new Audio();

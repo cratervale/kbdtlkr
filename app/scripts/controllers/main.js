@@ -85,10 +85,11 @@ angular.module('kbyoApp')
   		//check if in editing mode
   		if($scope.isEditing){
   			//set the key's word to the word input box
-	  		key.word = $scope.wordIn;
+	  		key.word = $scope.messages.sterilize($scope.wordIn);
+	  		console.log(key.word.length);
 	  		
 	  		// play the word locally
-	  		$scope.messages.addWord($scope.wordIn, $scope.previewEnabled, User.getPitch());  		
+	  		$scope.messages.addWord(key.word, $scope.previewEnabled, User.getPitch());  	
 	  		
 	  		//reset the word input
   			$scope.wordIn = "";
