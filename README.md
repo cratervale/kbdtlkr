@@ -1,6 +1,6 @@
 # Keyboard Talker (2015)
 
-A text-to-speech chat toy tied to an on-screen keyboard.  [Live Demo](play.killglare.com/kbdtlkr)
+A text-to-speech chat toy tied to an on-screen keyboard.  [Live Demo](http://play.killglare.com/kbdtlkr)
 
 
 ### Speech Synthesis
